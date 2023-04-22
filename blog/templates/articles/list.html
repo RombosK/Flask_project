@@ -4,13 +4,16 @@
     Articles
 {% endblock %}
 {% block body %}
-    {% for article_id in articles %}
+    {% for article in articles %}
         <ul>
-            <li>
-            <a href="{{ url_for('article.get_article', pk=article_id) }}">{{ articles[article_id]["title"] }}</a>
-            </li>
+            <a href="{{ url_for('article.get_article', pk=article.id) }}">{{ article.title }}</a>
+        </ul>
+        <ul>
+            Опубликовано {{ article.published_date.strftime('%Y-%m-%d в %H:%M') }}
         </ul>
     {% endfor %}
 {% endblock %}
+
+
 
 
