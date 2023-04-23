@@ -12,8 +12,8 @@ def init_db():
 @app.cli.command("create-users", help="create users")
 def create_users():
     from blog.models import User
-    db.session.add(User(email="test_1@gb.gb", password=generate_password_hash("test_1")))
-    db.session.add(User(email="test_2@gb.gb", password=generate_password_hash("test_2")))
+    db.session.add(User(nickname="Python", email="test_1@gb.gb", password=generate_password_hash("test_1")))
+    db.session.add(User(nickname="Flask", email="test_2@gb.gb", password=generate_password_hash("test_2")))
     db.session.commit()
 
 
