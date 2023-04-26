@@ -4,6 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .app import db
 from datetime import datetime
 
+
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
@@ -23,6 +24,5 @@ class Article(db.Model):
     published_date = db.Column(db.DateTime, default=datetime.utcnow)
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     author: Mapped["User"] = relationship()
-
 
 

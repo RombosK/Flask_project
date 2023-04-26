@@ -4,6 +4,7 @@ from datetime import datetime
 
 app = create_app()
 
+
 @app.cli.command("init-db", help="create all db")
 def init_db():
     db.create_all()
@@ -25,14 +26,8 @@ def create_articles():
     current_time = datetime.utcnow()
     Article.published_date = current_time
 
-
     db.session.add(Article(title='Заголовок_1', text=text, author_id=1))
     db.session.add(Article(title='Заголовок_2', text=text, author_id=2))
     db.session.add(Article(title='Заголовок_3', text=text, author_id=1))
     db.session.add(Article(title='Заголовок_4', text=text, author_id=2))
     db.session.commit()
-
-
-
-
-
