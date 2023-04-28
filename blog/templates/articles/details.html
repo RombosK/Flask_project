@@ -4,11 +4,12 @@
 Article details
 {% endblock %}
 {% block body %}
+
     <h1>
-        {{ article.title }}
+       <span class="badge bg-secondary"> {{ article.title }}</span>
     </h1>
     <br>
-    Author: {{ article.author.email }}
+    Author: {{ article.author.username }}
     <br>
     <br>
     {{ article.text }}

@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .xml
 .idea
+.vscode
 
 # C extensions
 *.so
@@ -66,7 +67,7 @@ db.sqlite3-journal
 # Flask stuff:
 instance/
 .webassets-cache
-
+migrations/
 # Scrapy stuff:
 .scrapy
 

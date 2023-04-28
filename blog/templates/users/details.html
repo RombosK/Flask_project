@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
-Users details
+User #{{ user.id }}
 {% endblock %}
 {% block body %}
-    <br>
-        <li>
-        username: {{ user.nickname }}
-        </li>
-    <br>
-    <br>
-        <li>
-        e-mail: {{ user.email }}
-        </li>
+<h3>
+    {{ user.username }}
+</h3>
+<h3>
+    {{ user.email }}
+</h3>
+{% if user.is_staff %}
+<span class="badge bg-secondary">staff</span>
+{% endif %}
 {% endblock %}
 
 

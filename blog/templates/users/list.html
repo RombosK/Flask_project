@@ -5,14 +5,15 @@
 {% endblock %}
 {% block body %}
     {% for user in users %}
-        <ul>
-            <li>
-            <a href="{{ url_for('user.profile', pk=user.id) }}">{{ user.email }}</a>
-            </li>
-        </ul>
+<li>
+<a href="{{ url_for('user.profile', pk=user.id) }}">
+    {{ user.username -}}
+</a>
+{% if user.is_staff %}
+<span class="badge bg-secondary">staff</span>
+{% endif %}
     {% endfor %}
 {% endblock %}
-
 
 
 
