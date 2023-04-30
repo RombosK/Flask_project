@@ -48,7 +48,7 @@ def register():
 @auth.route("/login/", methods=["GET", "POST"], endpoint="login")
 def login():
     if current_user.is_authenticated:
-        return redirect("home")
+        return redirect("login")
 
     form = LoginForm(request.form)
 

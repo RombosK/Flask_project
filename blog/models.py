@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True, nullable=True, default="", server_default="")
     _password = db.Column(db.LargeBinary, nullable=True)
 
+
     @property
     def password(self):
         return self._password
@@ -37,10 +38,11 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     text = db.Column(db.String(1024))
-    published = db.Column(db.Boolean)
+    # published = db.Column(db.Boolean)
     published_date = db.Column(db.DateTime, default=datetime.utcnow)
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     author: Mapped["User"] = relationship()
+
 
 
 

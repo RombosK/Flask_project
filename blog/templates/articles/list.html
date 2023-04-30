@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Articles
+Articles
 {% endblock %}
 {% block body %}
-    {% for article in articles %}
-        <span class="badge bg-secondary">
+{% for article in articles %}
+<span class="badge bg-secondary">
 
-            <h5><a href="{{ url_for('article.get_article', pk=article.id) }}">{{ article.title }}</a></h5>
+            <a href="{{ url_for('article.get_article', pk=article.id) }}"><h5>{{ article.title }}</h5></a>
 
-            Опубликовано {{ article.published_date.strftime('%Y-%m-%d в %H:%M') }}
+            {{ article.author.username }} опубликовал {{ article.published_date.strftime('%Y-%m-%d в %H:%M') }}
         </span>
-    {% endfor %}
+{% endfor %}
+<div>
+<hr>
+    <a href="{{ url_for('article.create_article') }}"><h5>Создать новую статью</h5></a>
+</div>
 {% endblock %}
 
 
