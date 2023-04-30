@@ -9,9 +9,9 @@ from werkzeug.exceptions import NotFound
 
 auth = Blueprint("auth", __name__, url_prefix="/auth", static_folder="../static")
 
+
 @auth.route("/register/", methods=["GET", "POST"], endpoint="register")
 def register():
-
     if current_user.is_authenticated:
         return redirect("home")
     error = None
@@ -42,8 +42,9 @@ def register():
         else:
             current_app.logger.info("Created user %s", user)
             login_user(user)
-            return redirect(url_for("home"))
+            return redirect(url_for("index.main_page"))
     return render_template("auth/register.html", form=form, error=error)
+
 
 @auth.route("/login/", methods=["GET", "POST"], endpoint="login")
 def login():
@@ -62,21 +63,21 @@ def login():
         return redirect(url_for("user.profile", pk=user.id))
     return render_template("auth/login.html", form=form)
 
+
 @auth.route("/logout/")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for(".login"))
 
+
 @auth.route("/login-as/", methods=["GET", "POST"], endpoint="login-as")
 def login_as():
     if not (current_user.is_authenticated and current_user.is_staff):
         raise NotFound
+
+
 @auth.route("/secret/")
 @login_required
 def secret_view():
     return "Closed data for admin"
-
-
-
-

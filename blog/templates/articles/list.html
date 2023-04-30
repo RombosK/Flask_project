@@ -9,7 +9,7 @@ Articles
 
             <a href="{{ url_for('article.get_article', pk=article.id) }}"><h5>{{ article.title }}</h5></a>
 
-            {{ article.author.username }} опубликовал {{ article.published_date.strftime('%Y-%m-%d в %H:%M') }}
+            {{ article.author.user.username }} опубликовал {{ article.published_date.strftime('%Y-%m-%d в %H:%M') }}
         </span>
 {% endfor %}
 <div>

@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from .extension import db, flask_bcrypt_
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -16,6 +17,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True, nullable=True, default="", server_default="")
     _password = db.Column(db.LargeBinary, nullable=True)
 
+    author = relationship('Author', uselist=False, back_populates='user')
 
     @property
     def password(self):
@@ -40,9 +42,18 @@ class Article(db.Model):
     text = db.Column(db.String(1024))
     # published = db.Column(db.Boolean)
     published_date = db.Column(db.DateTime, default=datetime.utcnow)
-    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    author: Mapped["User"] = relationship()
+    # author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    # author: Mapped["User"] = relationship()
+    author_id = db.Column(db.Integer, ForeignKey('authors.id'))
+    author = relationship('Author', back_populates='articles')
 
 
+class Author(db.Model):
+    __tablename__ = 'authors'
 
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
+    user = relationship('User', back_populates='author')
+    # articles = relationship('Article', primaryjoin='Author.id == Article.author_id')
+    articles = relationship('Article', back_populates='author')
