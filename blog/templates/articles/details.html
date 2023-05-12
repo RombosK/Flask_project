@@ -17,6 +17,18 @@ Article details
     <br>
     {{ article.published_date.strftime('%Y-%m-%d в %H:%M') }}
 
+     {% if article.tags %}
+        <div>Tags:</div>
+        <ul>
+            {% for tag in article.tags %}
+                <li>{{ tag.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+       <form action="{{ url_for('article.delete_article', pk=article.id) }}" method="post">
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </form>
 {% endblock %}
 
 

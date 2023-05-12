@@ -1,11 +1,10 @@
 from werkzeug.security import generate_password_hash
-from blog.app import app, db
+from blog.app import create_app, db
 from datetime import datetime
 import os
 from blog.models import User
 
-
-# app = create_app()
+app = create_app()
 
 
 @app.cli.command("create-users", help="create users")
@@ -16,8 +15,10 @@ def create_users():
     """
     from blog.models import User
     db.session.add(
-        User(username="test_1", email="test_1@gb.gb", is_staff=True, password=generate_password_hash("test_1")))
-    db.session.add(User(username="test_2", email="test_2@gb.gb", password=generate_password_hash("test_2")))
+        User(username="test_1", email="test_1@gb.gb", first_name="Test_1", last_name="Tort", is_staff=True,
+             password=generate_password_hash("test_1")))
+    db.session.add(User(username="test_2", email="test_2@gb.gb", first_name="Test_2", last_name="Cap",
+                        password=generate_password_hash("test_2")))
     db.session.commit()
 
 
@@ -28,7 +29,13 @@ def create_articles():
         ➜ flask create-articles
     """
     from blog.models import Article
-    text = 'Программная библиотека на языке Python для работы с реляционными СУБД с применением технологии ORM. Служит для синхронизации объектов Python и записей реляционной базы данных.SQLAlchemy позволяет описывать структуры баз данных и способы взаимодействия с ними на языкеPython без использования SQL.Система управления базами данных, СУБД — совокупность программных и лингвистических средств общего или специального назначения, обеспечивающих управление созданием и использованием базданных.ORM — технология программирования, которая связывает базы данных с концепциямиобъектно-ориентированных языков программирования, создавая «виртуальную объектную базу данных».'
+    text = 'Программная библиотека на языке Python для работы с реляционными СУБД с применением технологии ORM.' \
+           'Служит для синхронизации объектов Python и записей реляционной базы данных.SQLAlchemy позволяет описывать' \
+           'структуры баз данных и способы взаимодействия с ними на языкеPython без использования SQL.Система ' \
+           'управления базами данных, СУБД — совокупность программных и лингвистических средств общего или ' \
+           'специального назначения, обеспечивающих  управление созданием и использованием баз данных.ORM — ' \
+           'технология программирования, которая связывает базы данных с концепциями объектно-ориентированных языков\
+            программирования, создавая «виртуальную объектную базу данных».'
     published = True
     current_time = datetime.utcnow()
     Article.published_date = current_time
@@ -46,18 +53,32 @@ def create_admin():
     Run in your terminal:
     flask create-admin
     """
-    #     from blog.models import User
-    #     admin = User(username="admin", email="admin@gb.gb", is_staff=True)
-    #     # test_1 = User(nickname="test_1", email="test_1@gb.gb", is_staff=False)
-    #     db.session.add(admin)
-    #     # db.session.add(test_1)
-    #     db.session.commit()
-    #     print("done! created users:", admin)
-
     from blog.extension import db
     from blog.models import User
-    admin = User(username='superadmin',first_name="super", last_name="superoff", email='test_admin@email.com', is_staff=True)
+    admin = User(username='superadmin', first_name="super", last_name="superoff", email='test_admin@email.com',
+                 is_staff=True)
     admin.password = os.environ.get('ADMIN_PASSWORD') or 'superadmin'
     db.session.add(admin)
     db.session.commit()
     print('created superadmin:', admin)
+
+
+@app.cli.command("create-tags")
+def create_tags():
+    """
+    Run in your terminal:
+    ➜ flask create-tags
+    """
+    from blog.models import Tag
+    for name in [
+        "flask",
+        "django",
+        "python",
+        "sqlalchemy",
+        "news",
+    ]:
+        tag = Tag(name=name)
+        db.session.add(tag)
+    db.session.commit()
+    print("created tags")
+

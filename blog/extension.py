@@ -6,6 +6,6 @@ from flask_bcrypt import Bcrypt
 db = SQLAlchemy()
 login_manager = LoginManager()
 flask_bcrypt_ = Bcrypt()
-
+__all__ = ['db', 'login_manager', 'flask_bcrypt_']
 
 

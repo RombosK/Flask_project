@@ -1,8 +1,8 @@
 from flask_login import UserMixin
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Integer, String, Column, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-# from .app import db
 from datetime import datetime
+from .article_tag import article_tag_association_table
 from .extension import db, flask_bcrypt_
 
 
@@ -40,12 +40,16 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     text = db.Column(db.String(1024))
-    # published = db.Column(db.Boolean)
     published_date = db.Column(db.DateTime, default=datetime.utcnow)
     # author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     # author: Mapped["User"] = relationship()
     author_id = db.Column(db.Integer, ForeignKey('authors.id'))
     author = relationship('Author', back_populates='articles')
+    tags = relationship(
+        "Tag",
+        secondary=article_tag_association_table,
+        back_populates="articles",
+    )
 
 
 class Author(db.Model):
@@ -57,3 +61,13 @@ class Author(db.Model):
     user = relationship('User', back_populates='author')
     # articles = relationship('Article', primaryjoin='Author.id == Article.author_id')
     articles = relationship('Article', back_populates='author')
+
+
+class Tag(db.Model):
+    id = Column(Integer, primary_key=True)
+    name = Column(String(32), nullable=False, default="", server_default="")
+    articles = relationship(
+        "Article",
+        secondary=article_tag_association_table,
+        back_populates="tags",
+    )

@@ -1,4 +1,4 @@
-from blog.app import app
+from blog.app import create_app
 from blog.extension import db
 # from wsgi import init_db
 
@@ -9,7 +9,7 @@ from blog.extension import db
 #         # port=8000,
 #         debug=True
 #     )
-# app = create_app()
+app = create_app()
 if __name__ == "__main__":
 
     with app.app_context():

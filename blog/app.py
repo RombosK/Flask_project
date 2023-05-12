@@ -36,13 +36,13 @@ def register_blueprints(app: Flask):
         app.register_blueprint(view)
 
 
-# def create_app() -> Flask:
-app = Flask(__name__)
-app.config.from_file(CONFIG_PATH, json.load)
-migrate = Migrate(app, db, compare_type=True)
-register_extensions(app)
-register_blueprints(app)
-    # return app
+def create_app() -> Flask:
+    app = Flask(__name__)
+    app.config.from_file(CONFIG_PATH, json.load)
+    migrate = Migrate(app, db, compare_type=True)
+    register_extensions(app)
+    register_blueprints(app)
+    return app
 
 
 
