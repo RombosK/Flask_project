@@ -40,7 +40,7 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     text = db.Column(db.String(1024))
-    published_date = db.Column(db.DateTime, default=datetime.utcnow)
+    published_date = db.Column(db.DateTime, default=datetime.now())
     # author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     # author: Mapped["User"] = relationship()
     author_id = db.Column(db.Integer, ForeignKey('authors.id'))

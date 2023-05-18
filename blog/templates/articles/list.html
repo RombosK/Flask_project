@@ -5,7 +5,7 @@ Articles
 {% endblock %}
 {% block body %}
 {% for article in articles %}
-<span class="badge bg-secondary">
+        <span class="badge bg-secondary">
 
             <a href="{{ url_for('article.get_article', pk=article.id) }}"><h5>{{ article.title }}</h5></a>
 

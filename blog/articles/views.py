@@ -6,7 +6,7 @@ from werkzeug.exceptions import NotFound
 from flask_login import login_required, current_user
 
 from blog import articles
-from blog.forms.article import CreateArticleForm
+from blog.forms.article import CreateArticleForm, EditArticleForm
 from blog.users.views import get_user_name
 from blog.extension import db
 # from blog.forms.article import CreateArticleForm
@@ -79,7 +79,6 @@ def create_article():
 @login_required
 def delete_article(pk):
     article = Article.query.get_or_404(pk)
-
     if article.author_id != current_user.author.id:
         abort(403)
 
@@ -87,3 +86,30 @@ def delete_article(pk):
     db.session.commit()
 
     return redirect(url_for("article.article_list"))
+
+
+@article.route("/<int:pk>/edit", methods=["GET", "POST"])
+@login_required
+def edit_article(pk):
+    article = Article.query.get_or_404(pk)
+    if article.author != current_user.author:
+        abort(403)
+
+    form = EditArticleForm(obj=article)
+    form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
+    form.tags.data = [tag.id for tag in article.tags]
+
+    if request.method == "POST" and form.validate_on_submit():
+        article.title = form.title.data.strip()
+        article.text = form.text.data
+
+        if form.tags.data:
+            article.tags.clear()
+            selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+            for tag in selected_tags:
+                article.tags.append(tag)
+
+        db.session.commit()
+
+        return redirect(url_for("article.get_article", pk=article.id))
+    return render_template("articles/edit.html", form=form, action="Edit")

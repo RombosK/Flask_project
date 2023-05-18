@@ -29,6 +29,11 @@ Article details
        <form action="{{ url_for('article.delete_article', pk=article.id) }}" method="post">
             <button type="submit" class="btn btn-danger">Удалить</button>
         </form>
+        <br>
+        <form action="{{ url_for('article.edit_article', pk=article.id) }}" method="post">
+            <button type="submit" class="btn btn-danger">Редактировать</button>
+        </form>
+
 {% endblock %}
 
 
