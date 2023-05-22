@@ -104,7 +104,6 @@ def edit_article(pk):
         article.text = form.text.data
 
         if form.tags.data:
-            article.tags.clear()
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
             for tag in selected_tags:
                 article.tags.append(tag)
