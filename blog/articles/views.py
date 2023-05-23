@@ -102,7 +102,7 @@ def edit_article(pk):
     if request.method == "POST" and form.validate_on_submit():
         article.title = form.title.data.strip()
         article.text = form.text.data
-
+        article.tags.clear()
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
             for tag in selected_tags:
