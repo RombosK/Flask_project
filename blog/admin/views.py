@@ -55,5 +55,3 @@ class UserAdminView(CustomView):
     can_create = True
     can_edit = True
     can_delete = False
-
-

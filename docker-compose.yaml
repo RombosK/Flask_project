@@ -3,6 +3,9 @@ services:
   app:
     build:
       dockerfile: ./Dockerfile
+      args:
+        AIRFLOW_DEPS: gcp_api,s3
+        PYTHON_DEPS: MarkupSafe==2.0.1
       context: .
     environment:
       SQLALCHEMY_DATABASE_URI: postgresql://user:password@pg:5432/blog

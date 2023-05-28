@@ -1,8 +1,9 @@
-from werkzeug.security import generate_password_hash
-from blog.app import create_app, db
-from datetime import datetime
 import os
-from blog.models import User
+from datetime import datetime
+from werkzeug.security import generate_password_hash
+
+from blog.app import create_app
+from blog.extension import db
 
 app = create_app()
 

@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_admin import Admin
 from blog.admin.views import MyAdminIndexView
+from flask_combo_jsonapi import Api
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -14,6 +15,7 @@ admin = Admin(
     index_view=MyAdminIndexView(),
     template_mode="bootstrap4",
 )
+api = Api()
 
 
 
