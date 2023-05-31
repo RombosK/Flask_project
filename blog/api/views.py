@@ -10,7 +10,7 @@ from blog.api.article import ArticleDetail
 from blog.extension import api, csrf
 
 api_blueprint = Blueprint('api', __name__)
-csrf.exempt(api_blueprint)
+# csrf.exempt(api_blueprint)
 
 api.route(TagList, 'tag_list', '/api/tags/', tag='Tag', blueprint=api_blueprint)
 api.route(TagDetail, 'tag_detail', '/api/tags/<int:id>', tag='Tag', blueprint=api_blueprint)

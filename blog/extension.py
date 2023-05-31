@@ -11,7 +11,7 @@ from flask_wtf import CSRFProtect
 db = SQLAlchemy()
 login_manager = LoginManager()
 migrate = Migrate()
-csrf = CSRFProtect()
+# csrf = CSRFProtect()
 flask_bcrypt_ = Bcrypt()
 admin = Admin(
     name="Blog Admin",
