@@ -4,7 +4,7 @@ from combojsonapi.event import EventPlugin
 from combojsonapi.permission import PermissionPlugin
 from combojsonapi.spec import ApiSpecPlugin
 from flask import Flask
-from blog.extension import db, login_manager, flask_bcrypt_, admin, migrate, api
+from blog.extension import db, login_manager, flask_bcrypt_, csrf, admin, migrate, api
 from blog.models import User
 
 CONFIG_PATH = os.getenv("CONFIG_PATH", os.path.join('..', 'config.py'))
@@ -22,6 +22,7 @@ def create_app() -> Flask:
 def register_extensions(app):
     db.init_app(app)
     migrate.init_app(app, db, compare_type=True)
+    csrf.init_app(app)
     flask_bcrypt_.init_app(app)
     admin.init_app(app)
     api.plugins = [
