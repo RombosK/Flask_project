@@ -8,8 +8,10 @@ RUN pip install -r requirements.txt
 
 COPY run.py run.py
 COPY wsgi.py wsgi.py
-COPY dev_config.json dev_config.json
+COPY config.py config.py
+COPY migrations migrations
 COPY blog ./blog
+COPY . .
 
 EXPOSE 5000
 

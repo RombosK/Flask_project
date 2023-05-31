@@ -1,7 +1,9 @@
 import os
+
+from combojsonapi.event import EventPlugin
+from combojsonapi.permission import PermissionPlugin
 from combojsonapi.spec import ApiSpecPlugin
 from flask import Flask
-
 from blog.extension import db, login_manager, flask_bcrypt_, admin, migrate, api
 from blog.models import User
 
@@ -23,6 +25,8 @@ def register_extensions(app):
     flask_bcrypt_.init_app(app)
     admin.init_app(app)
     api.plugins = [
+        EventPlugin(),
+        PermissionPlugin(),
         ApiSpecPlugin(
             app=app,
             tags={
