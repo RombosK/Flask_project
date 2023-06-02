@@ -1,5 +1,5 @@
-
-#FROM python:3.9.16-slim
+#
+#FROM python:3.11-slim
 #
 #WORKDIR /blog
 #
@@ -8,7 +8,7 @@
 #
 #COPY run.py run.py
 #COPY wsgi.py wsgi.py
-#COPY config.py config.py
+##COPY config.py config.py
 #COPY migrations migrations
 #COPY blog ./blog
 #COPY . .
